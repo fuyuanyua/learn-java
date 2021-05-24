@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * @Description: CollectionUnsafeDemo
+ * @Description: ArrayList非线程安全示例
  * @Author: lhb
  * @Date: 2021/5/23 21:30
  *
@@ -42,9 +42,12 @@ public class ArrayListUnsafeDemo {
 
     public static void main(String[] args) {
         ArrayListUnsafeDemo demo = new ArrayListUnsafeDemo();
-        demo.safe3();
+        demo.unsafe();
     }
 
+    /**
+     * 线程不安全示例：使用ArrayList
+     */
     public void unsafe() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
@@ -55,6 +58,9 @@ public class ArrayListUnsafeDemo {
         }
     }
 
+    /**
+     * 线程安全示例1：使用Vector
+     */
     public void safe1() {
         List<String> list = new Vector<>();
         for (int i = 0; i < 100; i++) {
@@ -65,6 +71,9 @@ public class ArrayListUnsafeDemo {
         }
     }
 
+    /**
+     * 线程安全示例2：使用使用Collections工具类
+     */
     public void safe2() {
         List<String> list = Collections.synchronizedList(new ArrayList<>());
         for (int i = 0; i < 100; i++) {
@@ -75,6 +84,9 @@ public class ArrayListUnsafeDemo {
         }
     }
 
+    /**
+     * 线程安全示例3：使用CopyOnWriteArrayList
+     */
     public void safe3() {
         List<String> list = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 100; i++) {
