@@ -6,7 +6,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Description: 可重入锁示例
+ * @Description:
+ *      1.可重入锁示例
+ *      2.公平锁和非公平锁说明
  * @Author: lhb
  * @Date: 2021/5/24 22:26
  *
@@ -15,6 +17,27 @@ import java.util.concurrent.locks.ReentrantLock;
  *      2.示例：以下两种锁都是典型的可重入锁
  *          2.1：synchronized
  *          2.2：ReentrantLock
+ *
+ * 公平锁和非公平锁
+ *      1.说明：
+ *          公平锁：线程按照FIFO的顺序进入队列排队去获取锁
+ *          非公平锁：线程进来就会直接去抢占锁，抢占失败再去队列排队等待
+ *      2.示例：
+ *          2.1：synchronized是非公平锁
+ *          2.2：ReentrantLock默认是非公平锁
+ *
+ *              无参构造方法：
+ *              public ReentrantLock() {
+ *                  sync = new NonfairSync();
+ *              }
+ *              说明：创建一个非公平锁
+ *
+ *              含参构造方法：
+ *              public ReentrantLock(boolean fair) {
+ *                  sync = fair ? new FairSync() : new NonfairSync();
+ *              }
+ *              说明：传false：创建一个非公平锁；传true：创建一个公平锁
+ *
  *
  */
 
