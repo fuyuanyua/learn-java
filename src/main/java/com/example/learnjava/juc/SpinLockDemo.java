@@ -53,6 +53,12 @@ public class SpinLockDemo {
 
         new Thread(() -> {
             spinLock.lock();
+            // sleep5秒，模拟线程正在进行业务
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             spinLock.unlock();
         }, "t2").start();
 
@@ -64,12 +70,12 @@ public class SpinLockDemo {
     public void lock() {
         // 当前线程
         Thread thread = Thread.currentThread();
-        log.info("{}\t正在不断尝试获取锁", thread.getName());
+        log.info("{} 正在不断尝试获取锁", thread.getName());
         // 循环尝试获取锁
         while (!atomicReference.compareAndSet(null, thread)) {
-
+            log.info("{} 尝试获取锁失败", thread.getName());
         }
-        log.info("{}\t获取到了锁", thread.getName());
+        log.info("{} 获取到了锁", thread.getName());
     }
 
     /**
@@ -78,6 +84,6 @@ public class SpinLockDemo {
     public void unlock() {
         Thread thread = Thread.currentThread();
         atomicReference.compareAndSet(thread, null);
-        log.info("{}\t释放了锁", thread.getName());
+        log.info("{} 释放了锁", thread.getName());
     }
 }

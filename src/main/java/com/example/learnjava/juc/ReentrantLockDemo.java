@@ -98,12 +98,12 @@ public class ReentrantLockDemo {
 
     class Phone {
         public synchronized void sendMessage() {
-            log.info(Thread.currentThread().getName() + "\t sendMessage");
+            log.info(Thread.currentThread().getName() + " sendMessage");
             sendEmail();
         }
 
         public synchronized void sendEmail() {
-            log.info(Thread.currentThread().getName() + "\t sendEmail");
+            log.info(Thread.currentThread().getName() + " sendEmail");
         }
     }
 
@@ -114,7 +114,7 @@ public class ReentrantLockDemo {
         public void eat() {
             lock.lock();
             try {
-                log.info(Thread.currentThread().getName() + "\t eat");
+                log.info(Thread.currentThread().getName() + " eat");
                 talk();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,7 +126,7 @@ public class ReentrantLockDemo {
         public void talk() {
             lock.lock();
             try {
-                log.info(Thread.currentThread().getName() + "\t talk");
+                log.info(Thread.currentThread().getName() + " talk");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
