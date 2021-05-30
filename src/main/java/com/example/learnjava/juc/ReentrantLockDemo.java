@@ -47,15 +47,16 @@ public class ReentrantLockDemo {
     public static void main(String[] args) {
         ReentrantLockDemo demo = new ReentrantLockDemo();
 
+        log.info("----------测试synchronized----------");
         demo.testSynchronized();
 
         try {
             Thread.sleep(1000);
-            log.info("----------分隔符----------");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        log.info("----------测试ReentrantLock----------");
         demo.testReentrantLock();
     }
 
@@ -98,12 +99,12 @@ public class ReentrantLockDemo {
 
     class Phone {
         public synchronized void sendMessage() {
-            log.info(Thread.currentThread().getName() + " sendMessage");
+            log.info("{} sendMessage", Thread.currentThread().getName());
             sendEmail();
         }
 
         public synchronized void sendEmail() {
-            log.info(Thread.currentThread().getName() + " sendEmail");
+            log.info("{} sendEmail", Thread.currentThread().getName());
         }
     }
 
@@ -114,7 +115,7 @@ public class ReentrantLockDemo {
         public void eat() {
             lock.lock();
             try {
-                log.info(Thread.currentThread().getName() + " eat");
+                log.info("{} eat", Thread.currentThread().getName());
                 talk();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,7 +127,7 @@ public class ReentrantLockDemo {
         public void talk() {
             lock.lock();
             try {
-                log.info(Thread.currentThread().getName() + " talk");
+                log.info("{} talk", Thread.currentThread().getName());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
