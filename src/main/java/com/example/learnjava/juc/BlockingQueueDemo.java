@@ -44,11 +44,12 @@ import java.util.concurrent.SynchronousQueue;
 @Slf4j
 public class BlockingQueueDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         BlockingQueueDemo blockingQueueDemo = new BlockingQueueDemo();
 
         blockingQueueDemo.testArrayBlockingQueue1();
         blockingQueueDemo.testArrayBlockingQueue2();
+        blockingQueueDemo.testArrayBlockingQueue3();
     }
 
     /**
@@ -105,5 +106,27 @@ public class BlockingQueueDemo {
 
         // 队列空了调用peek方法，返回null
         log.info("peek -> {}", blockingQueue.peek());
+    }
+
+    /**
+     * 测试BlockingQueue的API：
+     *      1.put：往队列尾添加元素，若满，则阻塞
+     *      2.take：从队列头移除元素，若空，则阻塞
+     */
+    public void testArrayBlockingQueue3() throws InterruptedException {
+        log.info("----------测试put、take----------");
+        BlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue(3);
+        blockingQueue.put(1);
+        blockingQueue.put(2);
+        blockingQueue.put(3);
+
+        // log.info("队列满，阻塞");
+        // blockingQueue.put(4);
+
+        blockingQueue.take();
+        blockingQueue.take();
+        blockingQueue.take();
+        log.info("队列空，阻塞");
+        blockingQueue.take();
     }
 }
