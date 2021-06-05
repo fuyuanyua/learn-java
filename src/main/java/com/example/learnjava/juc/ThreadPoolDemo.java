@@ -64,15 +64,20 @@ import java.util.concurrent.*;
  *                  5.workQueue：阻塞队列，当核心线程满了之后，新的任务将进入阻塞队列
  *                  6.threadFactory：线程工厂，用于创建线程池中的线程对象，一般用默认即可
  *                  7.handler：拒绝策略
- *
+ *      4.线程池工作流程：
+ *          1.线程池被创建，创建了corePoolSize个核心线程等待执行任务
+ *          2.核心线程执行任务满了，后续进来的任务就进入阻塞队列
+ *          3.阻塞队列也满了，就创建新的非核心线程并立即执行后续进来的任务，直到线程总数达到maximumPoolSize
+ *          4.当线程总数达到maximumPoolSize且都在执行任务，线程池就会采取拒绝策略来处理后续进来的任务
+ *          5.其他说明：
+ *              1.当一个线程执行完任务后，它会从阻塞队列取下一个任务来执行
+ *              2.任务都执行完了，当线程的空闲时间超过keepAliveTime，线程会被销毁，直到线程池的线程总数降回到corePoolSize
  */
 
 @Slf4j
 public class ThreadPoolDemo {
 
     public static void main(String[] args) {
-        // log.info("{}", Runtime.getRuntime().availableProcessors());
-
         ThreadPoolDemo threadPoolDemo = new ThreadPoolDemo();
 
         // 测试用Executors创建线程池
@@ -80,7 +85,6 @@ public class ThreadPoolDemo {
 
         // 测试自定义线程池
         threadPoolDemo.testMyThreadPool();
-
     }
 
     /**
@@ -114,7 +118,7 @@ public class ThreadPoolDemo {
      * 测试自定义线程池，并验证各参数功能
      *
      * 验证：
-     *      当阻塞队列满后，有新任务进来，将会开启新的线程，并立即执行新进来的任务，而不是阻塞队列内的任务
+     *      当阻塞队列满后，如果再有新任务进来：将会开启新的线程，并立即执行新进来的任务，而不是执行阻塞队列内的任务
      */
     public void testMyThreadPool() {
         // 创建自定义线程池
