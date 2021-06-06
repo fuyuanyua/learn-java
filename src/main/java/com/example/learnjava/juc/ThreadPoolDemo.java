@@ -17,10 +17,12 @@ import java.util.concurrent.*;
  *          2.实现Runnable接口
  *          3.实现Callable接口
  *          4.通过线程池创建
+ *
  *      2.线程池创建线程的优点：
  *          1.线程可复用，减少反复创建线程对象、垃圾回收的消耗
  *          2.可以控制并发最大的线程数
  *          3.可以有效的管理线程
+ *
  *      3.创建线程池：
  *          1.借助Executors工具类：
  *              常用有以下几种：
@@ -64,6 +66,7 @@ import java.util.concurrent.*;
  *                  5.workQueue：阻塞队列，当核心线程满了之后，新的任务将进入阻塞队列
  *                  6.threadFactory：线程工厂，用于创建线程池中的线程对象，一般用默认即可
  *                  7.handler：拒绝策略
+ *
  *      4.线程池工作流程：
  *          1.线程池被创建，创建了corePoolSize个核心线程等待执行任务
  *          2.核心线程执行任务满了，后续进来的任务就进入阻塞队列
@@ -72,6 +75,34 @@ import java.util.concurrent.*;
  *          5.其他说明：
  *              1.当一个线程执行完任务后，它会从阻塞队列取下一个任务来执行
  *              2.任务都执行完了，当线程的空闲时间超过keepAliveTime，线程会被销毁，直到线程池的线程总数降回到corePoolSize
+ *
+ *      5.拒绝策略：
+ *          1.AbortPolicy（默认拒绝策略）：直接抛异常
+ *          2.CallerRunsPolicy：不抛异常也不丢弃任务，而是把任务回退给调用者线程
+ *          3.DiscardOldestPolicy：丢弃队列中等待最久的任务，然后把新任务加入到队列中
+ *          4.DiscardPolicy：直接丢弃新任务
+ *
+ *      6.实际生产中使用什么方式创建线程池？
+ *          不允许使用Executors创建，而是手动自定义创建线程池
+ *          参考阿里巴巴Java开发手册：https://github.com/alibaba/p3c/blob/master/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E5%B5%A9%E5%B1%B1%E7%89%88%EF%BC%89.pdf
+ *          1.Executors.newFixedThreadPool(n)和Executors.newSingleThreadExecutor()
+ *              源码中他们的阻塞队列采用了new LinkedBlockingQueue<Runnable>()，表示队列长度为Integer.MAX_VALUE
+ *              几乎可以认为是无界队列，那么就会堆积大量任务，导致OOM
+ *          2.Executors.newCachedThreadPool()
+ *              源码中maximumPoolSize参数设置为了Integer.MAX_VALUE，几乎可以认为会无限制地创建非核心线程，导致OOM
+ *
+ *      7.线程池参数如何合理配置？
+ *          主要关注maximumPoolSize这个参数，根据cpu的逻辑核心数设置，比如我的设备cpu为四核八线程，那么逻辑核心数为8
+ *          1.如果是cpu密集型业务：
+ *              cpu密集型表示该任务需要大量运算，没有阻塞，cpu一直在全负荷的跑
+ *              那么maximumPoolSize设为（cpu逻辑核心数 + 1），那么在我的设备上就设置为9
+ *          2.如果是io密集型业务：
+ *              io密集型例如经常的从数据库或缓存读数据、写数据，存在大量阻塞，那么有以下两种配置：
+ *              1.maximumPoolSize设置为（cpu逻辑核心数 * 2），那么在我的设备上就设置为16
+ *              2.maximumPoolSize设置为（cpu逻辑核心数 / (1 - 阻塞系数)），阻塞系数在0.8～0.9之间，
+ *              假设阻塞系数为0.9，那么在我的设备上就设置为80
+ *          注意：以上公式都是理论情况，但实际生产还是应该根据实际的具体情况来调整参数，以达到最优状态
+ *
  */
 
 @Slf4j
@@ -140,7 +171,7 @@ public class ThreadPoolDemo {
 
         // 模拟8个任务进来
         try {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 9; i++) {
                 int finalI = i;
                 myThreadPool.execute(() -> {
                     log.info("{} 处理任务{}", Thread.currentThread().getName(), finalI + 1);
