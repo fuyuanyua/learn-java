@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * 报错：
  *      java.lang.OutOfMemoryError: unable to create new native thread
  * 原因：
- *      一般来说，操作系统不允许一个应用无限制的创建新线程，
+ *      一般来说，操作系统不允许一个应用无限制的创建新线程，不同的操作系统，限制不同，这是由操作系统决定的，
  *      在Linux下，非root用户，一个进程最多创建1024个线程，可以用命令查看：ulimit -u
  */
 
