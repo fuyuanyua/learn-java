@@ -54,9 +54,9 @@ public class BlockingQueueDemo {
 
     /**
      * 测试BlockingQueue的API：
-     *      1.add：往队列尾添加元素
-     *      2.remove：从队列头移除元素
-     *      2.element：获取队列头元素，但不移除
+     *      1.add：往队列尾添加元素（若队列满，报异常）
+     *      2.remove：从队列头移除元素（若队列空，报异常）
+     *      2.element：获取队列头元素，但不移除（若队列空，报异常）
      */
     public void testArrayBlockingQueue1() {
         log.info("----------测试add、remove、element----------");
@@ -82,9 +82,9 @@ public class BlockingQueueDemo {
 
     /**
      * 测试BlockingQueue的API：
-     *      1.offer：往队列尾添加元素
-     *      2.poll：从队列头移除元素
-     *      2.peek：获取队列头元素，但不移除
+     *      1.offer：往队列尾添加元素（若队列满，返回false）
+     *      2.poll：从队列头移除元素（若队列空，返回null）
+     *      2.peek：获取队列头元素，但不移除（若队列空，返回null）
      */
     public void testArrayBlockingQueue2() {
         log.info("----------测试offer、poll、peek----------");
@@ -110,8 +110,8 @@ public class BlockingQueueDemo {
 
     /**
      * 测试BlockingQueue的API：
-     *      1.put：往队列尾添加元素，若满，则阻塞
-     *      2.take：从队列头移除元素，若空，则阻塞
+     *      1.put：往队列尾添加元素（若队列满，则阻塞）
+     *      2.take：从队列头移除元素（若队列空，则阻塞）
      */
     public void testArrayBlockingQueue3() throws InterruptedException {
         log.info("----------测试put、take----------");
