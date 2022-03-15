@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
- * @Description: ThreadDemo
+ * @Description: 线程创建示例
  * @Author: lhb
  * @Date: 2021/7/19 下午8:13
  */

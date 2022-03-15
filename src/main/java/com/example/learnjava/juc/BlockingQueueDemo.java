@@ -2,11 +2,8 @@ package com.example.learnjava.juc;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.PriorityQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * @Description: 阻塞队列示例

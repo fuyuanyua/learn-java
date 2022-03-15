@@ -3,7 +3,6 @@ package com.example.learnjava.juc;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.Lock;
 
 /**
  * @Description: 自旋锁示例

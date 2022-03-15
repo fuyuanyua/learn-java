@@ -1,11 +1,9 @@
 package com.example.learnjava.juc;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**

@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Description: PessimisticLockDemo
+ * @Description: 悲观锁示例
  * @Author: lhb
  * @Date: 2021/7/15 下午8:14
  */

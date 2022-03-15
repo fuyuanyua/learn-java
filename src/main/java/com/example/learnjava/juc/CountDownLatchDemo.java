@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @Description: CountDownLatchDemo
+ * @Description: CountDownLatch示例
  * @Author: lhb
  * @Date: 2021/10/21 上午10:04
  */

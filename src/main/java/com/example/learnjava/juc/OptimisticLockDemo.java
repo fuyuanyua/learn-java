@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @Description: OptimisticLockDemo
+ * @Description: 乐观锁示例
  * @Author: lhb
  * @Date: 2021/7/15 下午8:52
  */
