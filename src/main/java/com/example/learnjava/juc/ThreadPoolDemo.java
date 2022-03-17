@@ -90,6 +90,7 @@ import java.util.concurrent.*;
  *              源码中maximumPoolSize参数设置为了Integer.MAX_VALUE，几乎可以认为会无限制地创建非核心线程，导致OOM
  *
  *      7.线程池参数如何合理配置？
+ *          corePoolSize和maximumPoolSize需要设置成一样
  *          主要关注maximumPoolSize这个参数，根据cpu的逻辑核心数设置，比如我的设备cpu为四核八线程，那么逻辑核心数为8
  *          1.如果是cpu密集型业务：
  *              cpu密集型表示该任务需要大量运算，没有阻塞，cpu一直在全负荷的跑
