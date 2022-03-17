@@ -75,7 +75,7 @@ import java.util.concurrent.*;
  *              2.任务都执行完了，当线程的空闲时间超过keepAliveTime，线程会被销毁，直到线程池的线程总数降回到corePoolSize
  *
  *      5.拒绝策略：
- *          1.AbortPolicy（默认拒绝策略）：直接抛异常
+ *          1.AbortPolicy：直接抛异常
  *          2.CallerRunsPolicy：不抛异常也不丢弃任务，而是把任务回退给调用者线程
  *          3.DiscardOldestPolicy：丢弃队列中等待最久的任务，然后把新任务加入到队列中
  *          4.DiscardPolicy：直接丢弃新任务
