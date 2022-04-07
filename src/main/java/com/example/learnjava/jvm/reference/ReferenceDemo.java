@@ -16,6 +16,7 @@ import java.lang.ref.WeakReference;
 public class ReferenceDemo {
 
     public static void main(String[] args) {
+
         // 强引用
         // 只有所有GC Roots都没有通过引用链找到该对象，该对象【堆中的car】才会被垃圾回收
         Car car = new Car();
